@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,200;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/records.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="main.js" defer></script>
+    <title>Controle de EMH de Terceiros</title>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Controle de Equipamentos de Terceiros</h1>
+    </header>
+    <main>
+        <button type="button" class="button blue mobile" id="cadastrarEMH">Cadastrar Equipamento</button>
+        <table class="records">
+            <thead>
+                <tr>
+                    <th>Fornecedor</th>
+                    <th>Equipamento</th>
+                    <th>N. de Série</th>
+                    <th>Últ. Preventiva</th>
+                    <th>Próx. Preventiva</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Art Médica</td>
+                    <td>Carto</td>
+                    <td>13d013</td>
+                    <td tyoe="Data"></td>
+                    <td type="Data"></td>
+                    <td>Ok</td>
+                    <td>
+                        <button type="button" class="button green">editar</button>
+                        <button type="button" class="button pur">Certificado</button>
+                        <button type="button" class="button red">excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Newcardio</td>
+                    <td>Autolog</td>
+                    <td>1233099</td>
+                    <td>15/09/2023</td>
+                    <td>15/09/2024</td>
+                    <td>Ok</td>
+                    <td>
+                        <button type="button" class="button green">editar</button>
+                        <button type="button" class="button pur">Certificado</button>
+                        <button type="button" class="button red">excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Medtrauma</td>
+                    <td>Console de Shaver</td>
+                    <td>344400D008</td>
+                    <td>21/08/2023</td>
+                    <td>21/08/2024</td>
+                    <td>Ok</td>
+                    <td>
+                        <button type="button" class="button green">Editar</button>
+                        <button type="button" class="button pur">Certificado</button>
+                        <button type="button" class="button red">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h2>Novo Equipamento</h2>
+                    <span class="modal-close" id="modalClose">&#10006;</span>
+                </header>
+                <form class="modal-form">
+                    <div id="form-labels">
+                        <label>Nome da empresa:</label>
+                        <label>Nome do Equipamento:</label>
+                        <label>Número de série:</label>
+                        <label>Data da última preventiva:</label>
+                        <label>Data da próxima preventiva:</label>
+                        <label>Insira o Certificado:</label>
+                    </div>
+                    <div id="form-inputs">
+                        <input type="text" class="modal-field" placeholder="Nome do Fornecedor">
+                        <input type="email" class="modal-field" placeholder="Nome do Equipamento">
+                        <input type="text" class="modal-field" placeholder="Nº de Série">
+                        <input type="date" class="modal-field" placeholder="Data da última preventiva">
+                        <input type="date" class="modal-field" placeholder="Data da próxima preventiva">
+                        <input type="file" class="modal-field" accept=".pdf" placeholder="Selecione um arquivo PDF">
+                    </div>    
+                </form>
+                <footer class="modal-footer">
+                    <button type="submit" class="button green">Salvar</button>
+                    <button class="button blue">Cancelar</button>
+                </footer>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Copyright &copy; Felipe Costa
+    </footer>
+</body>
+</html>
