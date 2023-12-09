@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/records.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="main.js" defer></script>
     <title>Controle de EMH de Terceiros</title>
 </head>
@@ -18,7 +19,7 @@
         <h1 class="header-title">Controle de Equipamentos de Terceiros</h1>
     </header>
     <main>
-        <button type="button" class="button blue mobile" id="cadastrarEMH">Cadastrar Equipamento</button>
+        <button type="button" class="button blue mobile" id="cadastrarEMH"><i class="bi bi-plus-square" style="font-size: 20px"></i> Cadastrar Equipamento</button>
         <table class="records">
             <thead>
                 <tr>
@@ -36,39 +37,14 @@
                     <td>Art Médica</td>
                     <td>Carto</td>
                     <td>13d013</td>
-                    <td tyoe="Data"></td>
-                    <td type="Data"></td>
+                    <td type="Data">01/10/2023</td>
+                    <td type="Data">01/10/2024</td>
                     <td>Ok</td>
                     <td>
-                        <button type="button" class="button green">editar</button>
-                        <button type="button" class="button pur">Certificado</button>
-                        <button type="button" class="button red">excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Newcardio</td>
-                    <td>Autolog</td>
-                    <td>1233099</td>
-                    <td>15/09/2023</td>
-                    <td>15/09/2024</td>
-                    <td>Ok</td>
-                    <td>
-                        <button type="button" class="button green">editar</button>
-                        <button type="button" class="button pur">Certificado</button>
-                        <button type="button" class="button red">excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Medtrauma</td>
-                    <td>Console de Shaver</td>
-                    <td>344400D008</td>
-                    <td>21/08/2023</td>
-                    <td>21/08/2024</td>
-                    <td>Ok</td>
-                    <td>
-                        <button type="button" class="button green">Editar</button>
-                        <button type="button" class="button pur">Certificado</button>
-                        <button type="button" class="button red">Excluir</button>
+                        <button title="Editar" type="button" class="button green" style="font-size: 20px"><i class="bi bi-pencil-square" ></i></button>
+                        <button title="Anexar Certificado" type="button" class="button pur" style="font-size: 20px"><i class="bi bi-file-earmark-text"></i></button>
+                        <button title="Apagar" type="button" class="button red" style="font-size: 20px"><i class="bi bi-trash"></i></i></button>
+                        
                     </td>
                 </tr>
             </tbody>
@@ -89,17 +65,17 @@
                         <label>Insira o Certificado:</label>
                     </div>
                     <div id="form-inputs">
-                        <input type="text" class="modal-field" placeholder="Nome do Fornecedor">
-                        <input type="email" class="modal-field" placeholder="Nome do Equipamento">
-                        <input type="text" class="modal-field" placeholder="Nº de Série">
-                        <input type="date" class="modal-field" placeholder="Data da última preventiva">
-                        <input type="date" class="modal-field" placeholder="Data da próxima preventiva">
-                        <input type="file" class="modal-field" accept=".pdf" placeholder="Selecione um arquivo PDF">
+                        <input type="text" class="modal-field" id="m-fornecedor" placeholder="Nome do Fornecedor">
+                        <input type="email" class="modal-field" id="m-equipamento" placeholder="Nome do Equipamento">
+                        <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série">
+                        <input type="date" class="modal-field" id="m-ult_mp" placeholder="Data da última preventiva">
+                        <input type="date" class="modal-field" id="m-prox_mp" placeholder="Data da próxima preventiva">
+                        <input type="file" class="modal-field" id="m-certificado" accept=".pdf" placeholder="Selecione um arquivo PDF">
                     </div>    
                 </form>
                 <footer class="modal-footer">
-                    <button type="submit" class="button green">Salvar</button>
-                    <button class="button blue">Cancelar</button>
+                    <button type="submit" class="button green" id="btnSalvar">Salvar</button>
+                    <button class="button blue" id="btnCancelar">Cancelar</button>
                 </footer>
             </div>
         </div>
