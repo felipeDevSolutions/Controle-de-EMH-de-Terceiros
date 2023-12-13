@@ -42,10 +42,19 @@ const getStatus = (nextPreventiveDate) => {
   // Define as horas, minutos e segundos da próxima preventiva como 00:00:00
   nextPreventive.setHours(0, 0, 0, 0);
 
-  const status = nextPreventive >= currentDate ? "Ok" : "Atrasada";
-  console.log(`Status: ${status}`);
-  return status;
+  // Adiciona um mês à data atual
+  const oneMonthLater = new Date(currentDate);
+  oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+
+  if (nextPreventive >= oneMonthLater) {
+    return "Ok";
+  } else if (nextPreventive >= currentDate) {
+    return "Atenção";
+  } else {
+    return "Atrasada";
+  }
 };
+
 
 
 
@@ -69,7 +78,9 @@ const appendRow = (data) => {
 
 
   if (getStatus(data.prox_mp) === "Atrasada") {
-      row.classList.add("records-atrasada");
+    row.classList.add("records-atrasada");
+  } else if (getStatus(data.prox_mp) === "Atenção") {
+    row.classList.add("records-atencao");
   }
 
 };
@@ -110,7 +121,6 @@ const saveData = () => {
     return;
   }
 
-  // Restante do código para adicionar ou editar a linha
   if (editingRow) {
     // Atualizar os dados da linha existente
     const cells = editingRow.querySelectorAll("td");
@@ -127,8 +137,10 @@ const saveData = () => {
     // Atualizar a classe da linha se necessário
     if (getStatus(data.prox_mp) === "Atrasada") {
       editingRow.classList.add("records-atrasada");
-    } else {
-      editingRow.classList.remove("records-atrasada");
+    } else if (getStatus(data.prox_mp) === "Atenção") {
+      editingRow.classList.add("records-atencao");
+    } else if (getStatus(data.prox_mp) === "Ok") {
+      editingRow.classList.remove("records-atrasada", "records-atencao");
     }
 
     editingRow = null; // Limpar a variável de edição
@@ -177,7 +189,7 @@ const deleteRow = (button) => {
   tbody.removeChild(row);
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
   btnSave.addEventListener("click", saveData);
   btnCancel.addEventListener("click", closeModal);
 

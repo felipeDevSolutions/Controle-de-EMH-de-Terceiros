@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,200;1,800&display=swap"
-      rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/button.css">
-    <link rel="stylesheet" href="css/records.css">
-    <link rel="stylesheet" href="css/modal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-  
-    <title>Controle de EMH de Terceiros</title>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,200;1,800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/button.css">
+  <link rel="stylesheet" href="css/records.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
-  <body>
-    <header>
-      <h1 class="header-title">Controle de Equipamentos de Terceiros</h1>
-    </header>
-    <main>
-      <button onclick="openModalLimpo()" type="button" class="button blue mobile" id="cadastrarEMH"><i
-          class="bi bi-plus-square" style="font-size: 20px"></i> Cadastrar Equipamento</button>
-      <table class="records">
-        <thead>
-          <tr>
-            <th>Fornecedor</th>
-            <th>Equipamento</th>
-            <th>N. de Série</th>
-            <th>Últ. Preventiva</th>
-            <th>Próx. Preventiva</th>
-            <th>Status</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Dados do formulário são inseridos aqui -->
-        </tbody>
-      </table>
-      <div class="modal" id="modal">
-        <div class="modal-content">
-          <header class="modal-header">
-            <h2>Novo Equipamento</h2>
-            <span onclick="closeModal()" class="modal-close" id="modalClose">&#10006;</span>
-          </header>
-          <form class="modal-form">
-            <div id="form-labels">
-              <label for="m-fornecedor">Nome da empresa:</label>
-              <label for="m-equipamento">Nome do Equipamento:</label>
-              <label for="m-nserie">Número de série:</label>
-              <label for="m-ult_mp">Data da última preventiva:</label>
-              <label for="m-prox_mp">Data da próxima preventiva:</label>
-              <label for="m-certificado">Insira o Certificado:</label>
-            </div>
-            <div id="form-inputs">
-              <input type="text" class="modal-field" id="m-fornecedor" placeholder="Nome do Fornecedor" required />
-              <input type="email" class="modal-field" id="m-equipamento" placeholder="Nome do Equipamento" required />
-              <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série" required />
-              <input type="date" class="modal-field" id="m-ult_mp" placeholder="Data da última preventiva" required />
-              <input type="date" class="modal-field" id="m-prox_mp" placeholder="Data da próxima preventiva" required />
-              <input type="file" class="modal-field" id="m-certificado" accept=".pdf"
-                placeholder="Selecione um arquivo PDF" required />
-            </div>
-          </form>
-          <footer class="modal-footer">
-            <button type="submit" class="button green" id="btnSalvar">Salvar</button>
-            <button onclick="closeModal()" class="button blue" id="btnCancelar">Cancelar</button>
-          </footer>
-        </div>
+  <title>Controle de EMH de Terceiros</title>
+</head>
+
+<body>
+  <header>
+    <h1 class="header-title">Controle de Equipamentos de Terceiros</h1>
+  </header>
+  <main>
+    <button onclick="openModalLimpo()" type="button" class="button blue mobile" id="cadastrarEMH"><i
+        class="bi bi-plus-square" style="font-size: 20px"></i> Cadastrar Equipamento</button>
+    <table class="records">
+      <thead>
+        <tr>
+          <th>Fornecedor</th>
+          <th>Equipamento</th>
+          <th>N. de Série</th>
+          <th>Últ. Preventiva</th>
+          <th>Próx. Preventiva</th>
+          <th>Status</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dados do formulário são inseridos aqui -->
+      </tbody>
+    </table>
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2>Novo Equipamento</h2>
+          <span onclick="closeModal()" class="modal-close" id="modalClose">&#10006;</span>
+        </header>
+        <form class="modal-form">
+          <div id="form-labels">
+            <label for="m-fornecedor">Nome da empresa:</label>
+            <label for="m-equipamento">Nome do Equipamento:</label>
+            <label for="m-nserie">Número de série:</label>
+            <label for="m-ult_mp">Data da última preventiva:</label>
+            <label for="m-prox_mp">Data da próxima preventiva:</label>
+            <label for="m-certificado">Insira o Certificado:</label>
+          </div>
+          <div id="form-inputs">
+            <input type="text" class="modal-field" id="m-fornecedor" placeholder="Nome do Fornecedor" required />
+            <input type="email" class="modal-field" id="m-equipamento" placeholder="Nome do Equipamento" required />
+            <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série" required />
+            <input type="date" class="modal-field" id="m-ult_mp" placeholder="Data da última preventiva" required />
+            <input type="date" class="modal-field" id="m-prox_mp" placeholder="Data da próxima preventiva" required />
+            <input type="file" class="modal-field" id="m-certificado" accept=".pdf"
+              placeholder="Selecione um arquivo PDF" required />
+          </div>
+        </form>
+        <footer class="modal-footer">
+          <button type="submit" class="button green" id="btnSalvar">Salvar</button>
+          <button onclick="closeModal()" class="button blue" id="btnCancelar">Cancelar</button>
+        </footer>
       </div>
-    </main>
-    <footer>
-      Copyright &copy; Felipe Costa
-    </footer>
-    <script src="main.js"></script>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-  </body>
+    </div>
+  </main>
+  <footer>
+    Copyright &copy; Felipe Costa
+  </footer>
+  <script src="main.js"></script>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+</body>
 
 </html>
