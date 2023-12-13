@@ -56,8 +56,6 @@ const getStatus = (nextPreventiveDate) => {
 };
 
 
-
-
 const appendRow = (data) => {
   const row = tbody.insertRow();
   row.innerHTML = `
@@ -135,12 +133,15 @@ const saveData = () => {
     statusCell.textContent = getStatus(data.prox_mp);
 
     // Atualizar a classe da linha se necessário
+    // Remove todas as classes anteriores
+    editingRow.classList.remove("records-atrasada", "records-atencao", "records", "tr");
+
     if (getStatus(data.prox_mp) === "Atrasada") {
       editingRow.classList.add("records-atrasada");
     } else if (getStatus(data.prox_mp) === "Atenção") {
       editingRow.classList.add("records-atencao");
     } else if (getStatus(data.prox_mp) === "Ok") {
-      editingRow.classList.remove("records-atrasada", "records-atencao");
+      editingRow.classList.add("records");
     }
 
     editingRow = null; // Limpar a variável de edição
@@ -199,8 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Exemplo de carregamento de dados (substitua pelo seu método de carregamento)
   const sampleData = [
-    { fornecedor: "Empresa A", equipamento: "Equipamento 1", nserie: "123", ult_mp: "2023-01-01", prox_mp: "2023-12-31" },
-    { fornecedor: "Empresa B", equipamento: "Equipamento 2", nserie: "456", ult_mp: "2023-02-01", prox_mp: "2023-11-30" },
+    { fornecedor: "Empresa A", equipamento: "Equipamento 1", nserie: "123", ult_mp: "2023-01-01", prox_mp: "2023-12-13" }
   ];
 
   sampleData.forEach((data) => appendRow(data));
