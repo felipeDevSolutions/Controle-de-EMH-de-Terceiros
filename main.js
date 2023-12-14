@@ -6,7 +6,6 @@ const modalForm = document.querySelector(".modal-form");
 const tbody = document.querySelector("tbody");
 
 
-
 // Funções globais
 const openModalLimpo = () => {
   // Limpa os campos do formulário antes de abrir o modal
@@ -32,6 +31,7 @@ const closeModal = () => {
   modal.classList.remove("active");
 };
 
+//Função para pegar o status do equipamento e adicionar o status ao equipamento
 const getStatus = (nextPreventiveDate) => {
   const currentDate = new Date();
   const nextPreventive = new Date(nextPreventiveDate);
@@ -46,6 +46,8 @@ const getStatus = (nextPreventiveDate) => {
   const oneMonthLater = new Date(currentDate);
   oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
+  console.log(oneMonthLater)
+
   if (nextPreventive >= oneMonthLater) {
     return "Ok";
   } else if (nextPreventive >= currentDate) {
@@ -55,7 +57,7 @@ const getStatus = (nextPreventiveDate) => {
   }
 };
 
-
+//Função para configurar uma nova linha
 const appendRow = (data) => {
   const row = tbody.insertRow();
   row.innerHTML = `
@@ -73,12 +75,18 @@ const appendRow = (data) => {
     </td>
   `;
 
-
-
   if (getStatus(data.prox_mp) === "Atrasada") {
     row.classList.add("records-atrasada");
+    // Adiciona o evento de mouseover para exibir a mensagem
+    row.addEventListener("mouseover", function() {
+      row.title = "Solicitar certificado atualizado";
+    });
   } else if (getStatus(data.prox_mp) === "Atenção") {
     row.classList.add("records-atencao");
+    // Adiciona o evento de mouseover para exibir a mensagem
+    row.addEventListener("mouseover", function() {
+      row.title = "Certificado próximo do vencimento";
+    });
   }
 
 };
@@ -87,6 +95,7 @@ const appendRow = (data) => {
 // Variável global para armazenar a linha que está sendo editada
 let editingRow = null;
 
+//Função para salvar
 const saveData = () => {
   const data = {
     fornecedor: document.getElementById("m-fornecedor").value,
@@ -153,7 +162,7 @@ const saveData = () => {
   closeModal();
 };
 
-
+//Função para abrir o modal de edição
 const editRow = (button) => {
   editingRow = button.closest("tr");
   const cells = editingRow.querySelectorAll("td");
@@ -169,7 +178,7 @@ const editRow = (button) => {
   openModalEdit();
 };
 
-
+//Função para visualizar o certificado de manutenção preventiva
 const viewCertificate = (button) => {
   const row = button.closest("tr");
   const cells = row.querySelectorAll("td");
@@ -184,10 +193,39 @@ const viewCertificate = (button) => {
   }
 };
 
-
+//Função para deletar uma linha com confirmação
 const deleteRow = (button) => {
   const row = button.closest("tr");
-  tbody.removeChild(row);
+
+  // Mostrar um alerta de confirmação
+  const isConfirmed = confirm("Tem certeza que deseja excluir este equipamento?");
+
+  if (isConfirmed) {
+    tbody.removeChild(row);
+  }
+};
+
+//Função para pesquiar equipamentos
+const searchTable = () => {
+  const input = document.getElementById("searchInput");
+  const filter = input.value.toUpperCase();
+  const rows = tbody.getElementsByTagName("tr");
+
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName("td");
+    let shouldShow = false;
+
+    for (let j = 0; j < cells.length; j++) {
+      const cellText = cells[j].textContent || cells[j].innerText;
+
+      if (cellText.toUpperCase().indexOf(filter) > -1) {
+        shouldShow = true;
+        break;
+      }
+    }
+
+    rows[i].style.display = shouldShow ? "" : "none";
+  }
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -200,7 +238,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Exemplo de carregamento de dados (substitua pelo seu método de carregamento)
   const sampleData = [
-    { fornecedor: "Empresa A", equipamento: "Equipamento 1", nserie: "123", ult_mp: "2023-01-01", prox_mp: "2023-12-13" }
+    { fornecedor: "Siemens", equipamento: "Magnetom Skyra", nserie: "12345", ult_mp: "2023-12-01", prox_mp: "2024-02-01" },
+    { fornecedor: "Philips", equipamento: "Ingenia 3.0T", nserie: "67890", ult_mp: "2023-01-15", prox_mp: "2023-03-15" },
+    { fornecedor: "Siemens", equipamento: "Sensations 64 CT Scanner", nserie: "55668", ult_mp: "2023-12-15", prox_mp: "2023-01-15" },
+    { fornecedor: "Philips", equipamento: "Brilliance ICT SP Big Bore CT", nserie: "77890", ult_mp: "2023-01-30", prox_mp: "2023-03-30" },
+    { fornecedor: "GE Healthcare", equipamento: "Optima XR240amx", nserie: "54321", ult_mp: "2022-11-20", prox_mp: "2023-01-20" },
+    { fornecedor: "Siemens", equipamento: "SOMATOM Force", nserie: "98765", ult_mp: "2022-12-10", prox_mp: "2023-02-10" },
+    { fornecedor: "Philips", equipamento: "Azurion 7 C20", nserie: "13579", ult_mp: "2023-01-05", prox_mp: "2024-03-05" },
+    { fornecedor: "GE Healthcare", equipamento: "Vivid E95", nserie: "24680", ult_mp: "2023-02-05", prox_mp: "2023-04-05" },
+    { fornecedor: "Siemens", equipamento: "Biograph Vision PET/CT", nserie: "11223", ult_mp: "2022-11-25", prox_mp: "2023-01-25" },
+    { fornecedor: "Philips", equipamento: "Epiq Elite Ultrasound", nserie: "33445", ult_mp: "2023-01-01", prox_mp: "2023-03-01" },
+    { fornecedor: "GE Healthcare", equipamento: "LOGIQ E10 Ultrasound", nserie: "55667", ult_mp: "2023-02-15", prox_mp: "2023-04-15" },
+    { fornecedor: "Siemens", equipamento: "Acuson Sequoia Ultrasound", nserie: "77889", ult_mp: "2022-12-15", prox_mp: "2023-02-15" },
+    { fornecedor: "Philips", equipamento: "Affiniti 70 Ultrasound", nserie: "99001", ult_mp: "2023-01-20", prox_mp: "2023-03-20" },
+    { fornecedor: "Philips", equipamento: "Epic 5 Ultrasound", nserie: "11224", ult_mp: "2023-01-10", prox_mp: "2023-03-10" },
+    { fornecedor: "GE Healthcare", equipamento: "Vivid S6", nserie: "33446", ult_mp: "2023-02-20", prox_mp: "2024-04-20" },
+    { fornecedor: "GE Healthcare", equipamento: "OEC 9900 Elite C-arm", nserie: "11223", ult_mp: "2022-11-30", prox_mp: "2023-01-30" },
+    { fornecedor: "Siemens", equipamento: "Artis Q.zen Angiography", nserie: "33445", ult_mp: "2023-02-10", prox_mp: "2023-04-10" },
+    { fornecedor: "Philips", equipamento: "Allura Xper FD20/20", nserie: "55667", ult_mp: "2022-12-05", prox_mp: "2023-02-05" },
+    { fornecedor: "GE Healthcare", equipamento: "Centricity 360 PACS", nserie: "77889", ult_mp: "2023-01-10", prox_mp: "2023-03-10" },
+    { fornecedor: "Siemens", equipamento: "Symbia Intevo Bold SPECT/CT", nserie: "99001", ult_mp: "2023-02-20", prox_mp: "2023-04-20" },
+    { fornecedor: "Philips", equipamento: "IntelliVue MX750 Patient Monitor", nserie: "11223", ult_mp: "2023-12-20", prox_mp: "2024-02-20" },
+    { fornecedor: "GE Healthcare", equipamento: "CARESCAPE B850 Monitor", nserie: "33445", ult_mp: "2023-01-25", prox_mp: "2023-03-25" },
+    { fornecedor: "Siemens", equipamento: "Mammomat Fusion Mammography", nserie: "55667", ult_mp: "2023-02-01", prox_mp: "2024-04-01" },
+    { fornecedor: "Philips", equipamento: "Brilliance 64 CT Scanner", nserie: "77889", ult_mp: "2022-12-25", prox_mp: "2024-01-10" },
+    { fornecedor: "GE Healthcare", equipamento: "Discovery MI PET/CT", nserie: "99001", ult_mp: "2023-01-30", prox_mp: "2023-03-30" }
   ];
 
   sampleData.forEach((data) => appendRow(data));

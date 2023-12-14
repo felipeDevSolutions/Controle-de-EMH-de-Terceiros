@@ -22,8 +22,11 @@
     <h1 class="header-title">Controle de Equipamentos de Terceiros</h1>
   </header>
   <main>
-    <button onclick="openModalLimpo()" type="button" class="button blue mobile" id="cadastrarEMH"><i
+    <div class="header-controls">
+      <button onclick="openModalLimpo()" type="button" class="button blue mobile" id="cadastrarEMH"><i
         class="bi bi-plus-square" style="font-size: 20px"></i> Cadastrar Equipamento</button>
+      <input type="text" id="searchInput" placeholder="Pesquisar" oninput="searchTable()" />
+    </div>
     <table class="records">
       <thead>
         <tr>
