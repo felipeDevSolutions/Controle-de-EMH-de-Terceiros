@@ -21,6 +21,7 @@ const openModalLimpo = () => {
   modal.classList.add("active");
 };
 
+//Abre o modal para edição de um equipamento
 const openModalEdit = () => {
   // Altera o título da modal para "Editar Equipamento"
   document.querySelector(".modal-header h2").textContent = "Editar Equipamento";
@@ -30,6 +31,7 @@ const openModalEdit = () => {
 const closeModal = () => {
   modal.classList.remove("active");
 };
+
 
 //Função para pegar o status do equipamento e adicionar o status ao equipamento
 const getStatus = (nextPreventiveDate) => {
@@ -46,8 +48,6 @@ const getStatus = (nextPreventiveDate) => {
   const oneMonthLater = new Date(currentDate);
   oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
-  console.log(oneMonthLater)
-
   if (nextPreventive >= oneMonthLater) {
     return "Ok";
   } else if (nextPreventive >= currentDate) {
@@ -57,10 +57,11 @@ const getStatus = (nextPreventiveDate) => {
   }
 };
 
+
 //Função para configurar uma nova linha
 const appendRow = (data) => {
-  const row = tbody.insertRow();
-  row.innerHTML = `
+  const mainRow = tbody.insertRow();
+  mainRow.innerHTML = `
     <td>${data.fornecedor}</td>
     <td>${data.equipamento}</td>
     <td>${data.nserie}</td>
@@ -76,24 +77,42 @@ const appendRow = (data) => {
   `;
 
   if (getStatus(data.prox_mp) === "Atrasada") {
-    row.classList.add("records-atrasada");
+    mainRow.classList.add("records-atrasada");
     // Adiciona o evento de mouseover para exibir a mensagem
-    row.addEventListener("mouseover", function() {
-      row.title = "Solicitar certificado atualizado";
+    mainRow.addEventListener("mouseover", function () {
+      mainRow.title = "Solicitar certificado atualizado";
     });
   } else if (getStatus(data.prox_mp) === "Atenção") {
-    row.classList.add("records-atencao");
+    mainRow.classList.add("records-atencao");
     // Adiciona o evento de mouseover para exibir a mensagem
-    row.addEventListener("mouseover", function() {
-      row.title = "Certificado próximo do vencimento";
+    mainRow.addEventListener("mouseover", function () {
+      mainRow.title = "Certificado próximo do vencimento";
     });
   }
 
+  // Adicione o número de telefone como uma célula na nova linha
+  const contactRow = tbody.insertRow();
+  const contactCell = contactRow.insertCell();
+  contactCell.className = "contact-row";
+  contactCell.colSpan = 7;
+  // Verifica se o telefone está vazio antes de definir o conteúdo
+  contactCell.textContent = data.telefone ? `Contato: ${data.telefone}` : "Contato: Não informado";
+  contactRow.style.display = "none"; // Oculta a linha de contato por padrão
+
+  // Adiciona um evento de clique à linha principal
+  mainRow.addEventListener("click", () => toggleContactRow(contactRow));
+};
+
+
+//Função para alternar a linha de contato
+const toggleContactRow = (contactRow) => {
+  contactRow.style.display = contactRow.style.display === "none" ? "" : "none";
 };
 
 
 // Variável global para armazenar a linha que está sendo editada
 let editingRow = null;
+
 
 //Função para salvar
 const saveData = () => {
@@ -103,6 +122,7 @@ const saveData = () => {
     nserie: document.getElementById("m-nserie").value,
     ult_mp: document.getElementById("m-ult_mp").value,
     prox_mp: document.getElementById("m-prox_mp").value,
+    telefone: document.getElementById("m-telefone").value,
   };
 
   // Verificar se todos os campos foram preenchidos
@@ -120,6 +140,7 @@ const saveData = () => {
       cells[2].textContent === data.nserie &&
       cells[3].textContent === data.ult_mp &&
       cells[4].textContent === data.prox_mp
+      
     );
   });
 
@@ -136,7 +157,7 @@ const saveData = () => {
     cells[2].textContent = data.nserie;
     cells[3].textContent = data.ult_mp;
     cells[4].textContent = data.prox_mp;
-
+    
     // Atualizar o status da linha
     const statusCell = cells[5];
     statusCell.textContent = getStatus(data.prox_mp);
@@ -239,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Exemplo de carregamento de dados (substitua pelo seu método de carregamento)
   const sampleData = [
     { fornecedor: "Siemens", equipamento: "Magnetom Skyra", nserie: "12345", ult_mp: "2023-12-01", prox_mp: "2024-02-01" },
-    { fornecedor: "Philips", equipamento: "Ingenia 3.0T", nserie: "67890", ult_mp: "2023-01-15", prox_mp: "2023-03-15" },
+    { fornecedor: "Philips", equipamento: "Ingenia 3.0T", nserie: "67890", ult_mp: "2023-01-15", prox_mp: "2024-01-14" },
     { fornecedor: "Siemens", equipamento: "Sensations 64 CT Scanner", nserie: "55668", ult_mp: "2023-12-15", prox_mp: "2023-01-15" },
     { fornecedor: "Philips", equipamento: "Brilliance ICT SP Big Bore CT", nserie: "77890", ult_mp: "2023-01-30", prox_mp: "2023-03-30" },
     { fornecedor: "GE Healthcare", equipamento: "Optima XR240amx", nserie: "54321", ult_mp: "2022-11-20", prox_mp: "2023-01-20" },

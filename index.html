@@ -50,22 +50,33 @@
           <span onclick="closeModal()" class="modal-close" id="modalClose">&#10006;</span>
         </header>
         <form class="modal-form">
-          <div id="form-labels">
+          <div id="form-group">
             <label for="m-fornecedor">Nome da empresa:</label>
-            <label for="m-equipamento">Nome do Equipamento:</label>
-            <label for="m-nserie">Número de série:</label>
-            <label for="m-ult_mp">Data da última preventiva:</label>
-            <label for="m-prox_mp">Data da próxima preventiva:</label>
-            <label for="m-certificado">Insira o Certificado:</label>
-          </div>
-          <div id="form-inputs">
             <input type="text" class="modal-field" id="m-fornecedor" placeholder="Nome do Fornecedor" required />
+          </div>
+          <div id="form-group">
+            <label for="m-equipamento">Nome do Equipamento:</label>
             <input type="email" class="modal-field" id="m-equipamento" placeholder="Nome do Equipamento" required />
-            <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série" required />
+          </div>
+          <div id="form-group">
+            <label for="m-nserie">Número de série:</label>
+             <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série" required />
+          </div>
+          <div id="form-group">
+            <label for="m-ult_mp">Data da última preventiva:</label>
             <input type="date" class="modal-field" id="m-ult_mp" placeholder="Data da última preventiva" required />
+          </div>
+          <div id="form-group">
+            <label for="m-prox_mp">Data da próxima preventiva:</label>
             <input type="date" class="modal-field" id="m-prox_mp" placeholder="Data da próxima preventiva" required />
-            <input type="file" class="modal-field" id="m-certificado" accept=".pdf"
-              placeholder="Selecione um arquivo PDF" required />
+          </div>
+          <div id="form-group">
+            <label for="m-telefone">Contato:</label>
+            <input type="text" class="modal-field" id="m-telefone" placeholder="Nome e telefone ou e-mail" required />
+          </div>
+          <div id="form-group">
+            <label for="m-certificado">Insira o Certificado:</label>
+            <input type="file" class="modal-field" id="m-certificado" accept=".pdf" placeholder="Selecione um arquivo PDF" required />
           </div>
         </form>
         <footer class="modal-footer">
