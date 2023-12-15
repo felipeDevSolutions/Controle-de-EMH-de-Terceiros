@@ -262,11 +262,16 @@ const searchTable = () => {
     rows[i].style.display = shouldShow ? "" : "none";
 
     // Adiciona um evento de clique à linha principal
-    rows[i].addEventListener("click", () => toggleContactRow(toggleContactRow));
+    mainRow.addEventListener("click", () => toggleContactRow(toggleContactRow));
   }
+
+  // Oculta as linhas de contato se o campo de pesquisa estiver vazio
+  const contactRows = tbody.querySelectorAll(".contact-row");
+  contactRows.forEach((row) => {
+    row.style.display = filter.trim() !== "" ? "" : "none";
+  });
+
 };
-
-
 
 
 document.addEventListener("DOMContentLoaded", function() {
