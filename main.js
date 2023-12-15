@@ -100,14 +100,21 @@ const appendRow = (data) => {
   contactRow.style.display = "none"; // Oculta a linha de contato por padrão
 
   // Adiciona um evento de clique à linha principal
-  mainRow.addEventListener("click", () => toggleContactRow(contactRow));
+  mainRow.addEventListener("click", () => toggleContactRow(mainRow));
 };
 
 
 //Função para alternar a linha de contato
-const toggleContactRow = (contactRow) => {
-  contactRow.style.display = contactRow.style.display === "none" ? "" : "none";
+const toggleContactRow = (mainRow) => {
+  // Encontra a linha de contato associada à linha principal
+  const contactRow = Array.from(tbody.children).find((row) => row !== mainRow && row.previousElementSibling === mainRow);
+
+  if (contactRow) {
+    // Exibe ou oculta a linha de contato
+    contactRow.style.display = contactRow.style.display === "none" ? "" : "none";
+  }
 };
+
 
 
 // Variável global para armazenar a linha que está sendo editada
@@ -140,7 +147,7 @@ const saveData = () => {
       cells[2].textContent === data.nserie &&
       cells[3].textContent === data.ult_mp &&
       cells[4].textContent === data.prox_mp
-      
+
     );
   });
 
@@ -157,7 +164,7 @@ const saveData = () => {
     cells[2].textContent = data.nserie;
     cells[3].textContent = data.ult_mp;
     cells[4].textContent = data.prox_mp;
-    
+
     // Atualizar o status da linha
     const statusCell = cells[5];
     statusCell.textContent = getStatus(data.prox_mp);
@@ -226,11 +233,17 @@ const deleteRow = (button) => {
   }
 };
 
-//Função para pesquiar equipamentos
+//Função para pesquisar equipamentos
 const searchTable = () => {
   const input = document.getElementById("searchInput");
-  const filter = input.value.toUpperCase();
-  const rows = tbody.getElementsByTagName("tr");
+  let filter = input.value.toUpperCase();
+
+  // Adiciona uma condição para garantir que filter só tenha efeito se não for vazio
+  if (filter.trim() !== "") {
+    filter = filter.toUpperCase();
+  }
+
+  const rows = tbody.querySelectorAll("tr:not(.contact-row)"); // Exclui as linhas de contato
 
   for (let i = 0; i < rows.length; i++) {
     const cells = rows[i].getElementsByTagName("td");
@@ -239,15 +252,22 @@ const searchTable = () => {
     for (let j = 0; j < cells.length; j++) {
       const cellText = cells[j].textContent || cells[j].innerText;
 
-      if (cellText.toUpperCase().indexOf(filter) > -1) {
+      if (filter === "" || cellText.toUpperCase().indexOf(filter) > -1) {
         shouldShow = true;
         break;
       }
     }
 
+    // Exibe ou oculta a linha principal com base nos critérios de pesquisa
     rows[i].style.display = shouldShow ? "" : "none";
+
+    // Adiciona um evento de clique à linha principal
+    rows[i].addEventListener("click", () => toggleContactRow(toggleContactRow));
   }
 };
+
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
   btnSave.addEventListener("click", saveData);
