@@ -139,13 +139,12 @@ const saveData = () => {
     contato: document.getElementById("m-contato").value,
   };
 
-  // Verificar se todos os campos foram preenchidos
-  if (!data.fornecedor || !data.equipamento || !data.nserie || !data.ult_mp || !data.prox_mp) {
-    alert("Por favor, preencha todos os campos do formulário.");
+  if (!data.fornecedor || !data.equipamento || !data.nserie || !data.ult_mp || !data.prox_mp || !data.contato) {
+    alert("Por favor, preencha todos os campos do formulário, incluindo o Contato.");
     return;
   }
 
-  // Verificar se já existe uma linha exatamente igual na tabela
+  // Verificar se já existe uma linha exatamente igual na tabela, considerando o contato
   const existingRow = Array.from(tbody.children).find((row) => {
     const cells = row.querySelectorAll("td");
     return (
@@ -154,7 +153,7 @@ const saveData = () => {
       cells[2].textContent === data.nserie &&
       cells[3].textContent === data.ult_mp &&
       cells[4].textContent === data.prox_mp &&
-      cells[6].textContent.replace("Contato: ", "") === data.contato
+      row.nextElementSibling.querySelector(".contact-row").textContent === (data.contato ? `Contato: ${data.contato}` : "Contato: Não informado")
     );
   });
 

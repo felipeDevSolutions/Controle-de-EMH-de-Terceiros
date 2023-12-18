@@ -38,6 +38,14 @@
   /* ou qualquer outra cor vermelha que preferir */
 }
 
+.contact-row {
+  transition: display 0.3s ease-in-out;
+}
+
+.contact-row.show-contact {
+  display: table-row;
+}
+
 @media(max-width:480px) {
   .records {
     border-spacing: 5px;
