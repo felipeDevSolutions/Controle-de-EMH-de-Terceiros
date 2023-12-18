@@ -6,7 +6,6 @@ const modalForm = document.querySelector(".modal-form");
 const tbody = document.querySelector("tbody");
 
 
-// Funções globais
 const openModalLimpo = () => {
   // Limpa os campos do formulário antes de abrir o modal
   document.getElementById("m-fornecedor").value = "";
@@ -14,12 +13,15 @@ const openModalLimpo = () => {
   document.getElementById("m-nserie").value = "";
   document.getElementById("m-ult_mp").value = "";
   document.getElementById("m-prox_mp").value = "";
+  document.getElementById("m-contato").value = "";  // Limpa o campo de Contato
 
   // Altera o título da modal para "Editar Equipamento"
   document.querySelector(".modal-header h2").textContent = "Novo Equipamento";
-  //Abre o formulário
+  // Abre o formulário
   modal.classList.add("active");
 };
+
+
 
 //Abre o modal para edição de um equipamento
 const openModalEdit = () => {
@@ -27,6 +29,7 @@ const openModalEdit = () => {
   document.querySelector(".modal-header h2").textContent = "Editar Equipamento";
   modal.classList.add("active");
 };
+
 
 const closeModal = () => {
   modal.classList.remove("active");
@@ -68,7 +71,7 @@ const appendRow = (data) => {
     <td>${data.ult_mp}</td>
     <td>${data.prox_mp}</td>
     <td>${getStatus(data.prox_mp)}</td>
-    <td>
+    <td class="action-cell">
       <!-- Adiciona o caminho do certificado como um atributo data-certificado -->
       <button onclick="editRow(this)" title="Editar" type="button" class="button green" style="font-size: 20px"><i class="bi bi-pencil-square"></i></button>
       <button onclick="viewCertificate(this)" title="Visualizar Certificado" type="button" class="button pur" style="font-size: 20px" data-certificado="${data.certificado}"><i class="bi bi-file-earmark-text"></i></button>
@@ -79,49 +82,53 @@ const appendRow = (data) => {
   if (getStatus(data.prox_mp) === "Atrasada") {
     mainRow.classList.add("records-atrasada");
     // Adiciona o evento de mouseover para exibir a mensagem
-    mainRow.addEventListener("mouseover", function () {
+    mainRow.addEventListener("mouseover", function() {
       mainRow.title = "Solicitar certificado atualizado";
     });
   } else if (getStatus(data.prox_mp) === "Atenção") {
     mainRow.classList.add("records-atencao");
     // Adiciona o evento de mouseover para exibir a mensagem
-    mainRow.addEventListener("mouseover", function () {
+    mainRow.addEventListener("mouseover", function() {
       mainRow.title = "Certificado próximo do vencimento";
     });
   }
 
-  // Adicione o número de telefone como uma célula na nova linha
+  // Adicione o contato como uma célula na nova linha
   const contactRow = tbody.insertRow();
   const contactCell = contactRow.insertCell();
   contactCell.className = "contact-row";
   contactCell.colSpan = 7;
-  // Verifica se o telefone está vazio antes de definir o conteúdo
-  contactCell.textContent = data.telefone ? `Contato: ${data.telefone}` : "Contato: Não informado";
+  // Verifica se o contato está vazio antes de definir o conteúdo
+  contactCell.textContent = data.contato ? `Contato: ${data.contato}` : "Contato: Não informado";
   contactRow.style.display = "none"; // Oculta a linha de contato por padrão
 
   // Adiciona um evento de clique à linha principal
-  mainRow.addEventListener("click", () => toggleContactRow(mainRow));
+  mainRow.addEventListener("click", (event) => toggleContactRow(mainRow, event));
+
+
 };
 
 
-//Função para alternar a linha de contato
-const toggleContactRow = (mainRow) => {
-  // Encontra a linha de contato associada à linha principal
-  const contactRow = Array.from(tbody.children).find((row) => row !== mainRow && row.previousElementSibling === mainRow);
+const toggleContactRow = (mainRow, event) => {
+  // Verifica se o clique foi na célula "Ação"
+  const isActionButton = event.target.closest(".action-cell");
 
-  if (contactRow) {
-    // Exibe ou oculta a linha de contato
-    contactRow.style.display = contactRow.style.display === "none" ? "" : "none";
+  if (!isActionButton) {
+    // Encontra a linha de contato associada à linha principal
+    const contactRow = Array.from(tbody.children).find((row) => row !== mainRow && row.previousElementSibling === mainRow);
+
+    if (contactRow) {
+      // Exibe ou oculta a linha de contato
+      contactRow.style.display = contactRow.style.display === "none" ? "" : "none";
+    }
   }
 };
-
 
 
 // Variável global para armazenar a linha que está sendo editada
 let editingRow = null;
 
 
-//Função para salvar
 const saveData = () => {
   const data = {
     fornecedor: document.getElementById("m-fornecedor").value,
@@ -129,7 +136,7 @@ const saveData = () => {
     nserie: document.getElementById("m-nserie").value,
     ult_mp: document.getElementById("m-ult_mp").value,
     prox_mp: document.getElementById("m-prox_mp").value,
-    telefone: document.getElementById("m-telefone").value,
+    contato: document.getElementById("m-contato").value,
   };
 
   // Verificar se todos os campos foram preenchidos
@@ -146,8 +153,8 @@ const saveData = () => {
       cells[1].textContent === data.equipamento &&
       cells[2].textContent === data.nserie &&
       cells[3].textContent === data.ult_mp &&
-      cells[4].textContent === data.prox_mp
-
+      cells[4].textContent === data.prox_mp &&
+      cells[6].textContent.replace("Contato: ", "") === data.contato
     );
   });
 
@@ -164,6 +171,10 @@ const saveData = () => {
     cells[2].textContent = data.nserie;
     cells[3].textContent = data.ult_mp;
     cells[4].textContent = data.prox_mp;
+
+    // Atualiza o contato na linha
+    const contactRow = editingRow.nextElementSibling;
+    contactRow.querySelector(".contact-row").textContent = data.contato ? `Contato: ${data.contato}` : "Contato: Não informado";
 
     // Atualizar o status da linha
     const statusCell = cells[5];
@@ -190,7 +201,8 @@ const saveData = () => {
   closeModal();
 };
 
-//Função para abrir o modal de edição
+
+
 const editRow = (button) => {
   editingRow = button.closest("tr");
   const cells = editingRow.querySelectorAll("td");
@@ -202,9 +214,17 @@ const editRow = (button) => {
   document.getElementById("m-ult_mp").value = cells[3].textContent;
   document.getElementById("m-prox_mp").value = cells[4].textContent;
 
+  // Adiciona o contato ao formulário de edição
+  const contactRow = editingRow.nextElementSibling;
+  document.getElementById("m-contato").value = contactRow.querySelector(".contact-row").textContent.replace("Contato: ", ""); // Corrigido para índice correto
+
   // Abre o modal para edição
   openModalEdit();
 };
+
+
+
+
 
 //Função para visualizar o certificado de manutenção preventiva
 const viewCertificate = (button) => {
@@ -221,6 +241,7 @@ const viewCertificate = (button) => {
   }
 };
 
+
 //Função para deletar uma linha com confirmação
 const deleteRow = (button) => {
   const row = button.closest("tr");
@@ -233,44 +254,30 @@ const deleteRow = (button) => {
   }
 };
 
-//Função para pesquisar equipamentos
+
 const searchTable = () => {
   const input = document.getElementById("searchInput");
-  let filter = input.value.toUpperCase();
+  const filter = input.value.toUpperCase();
+  const rows = Array.from(tbody.querySelectorAll("tr:not(.contact-row)"));
 
-  // Adiciona uma condição para garantir que filter só tenha efeito se não for vazio
-  if (filter.trim() !== "") {
-    filter = filter.toUpperCase();
-  }
-
-  const rows = tbody.querySelectorAll("tr:not(.contact-row)"); // Exclui as linhas de contato
-
+  //Percorre as linhas da tabela exceto as linhas de contato
   for (let i = 0; i < rows.length; i++) {
-    const cells = rows[i].getElementsByTagName("td");
-    let shouldShow = false;
+    const cells = Array.from(rows[i].getElementsByTagName("td")).filter((cell) => !cell.classList.contains("contact-row"));
+    let found = false;
 
+    //Percorre as células (colunas) da tabela exceto as linhas de contato
     for (let j = 0; j < cells.length; j++) {
       const cellText = cells[j].textContent || cells[j].innerText;
 
-      if (filter === "" || cellText.toUpperCase().indexOf(filter) > -1) {
-        shouldShow = true;
+      if (cellText.toUpperCase().indexOf(filter) > -1) {
+        found = true;
         break;
       }
     }
 
-    // Exibe ou oculta a linha principal com base nos critérios de pesquisa
-    rows[i].style.display = shouldShow ? "" : "none";
-
-    // Adiciona um evento de clique à linha principal
-    mainRow.addEventListener("click", () => toggleContactRow(toggleContactRow));
+    // Exibe ou oculta a linha com base na pesquisa
+    rows[i].style.display = found ? "" : "none";
   }
-
-  // Oculta as linhas de contato se o campo de pesquisa estiver vazio
-  const contactRows = tbody.querySelectorAll(".contact-row");
-  contactRows.forEach((row) => {
-    row.style.display = filter.trim() !== "" ? "" : "none";
-  });
-
 };
 
 
