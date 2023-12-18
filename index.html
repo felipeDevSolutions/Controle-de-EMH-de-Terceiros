@@ -21,10 +21,13 @@
   <header>
     <h1 class="header-title">Controle de Equipamentos de Terceiros</h1>
   </header>
+  <div id="descricao-sistema">
+    Sistema para acompanhamento das manutenções preventivas dos equipamentos de terceiros.
+  </div>
   <main>
     <div class="header-controls">
       <button onclick="openModalLimpo()" type="button" class="button blue mobile" id="cadastrarEMH"><i
-        class="bi bi-plus-square" style="font-size: 20px"></i> Cadastrar Equipamento</button>
+          class="bi bi-plus-square" style="font-size: 20px"></i> Cadastrar Equipamento</button>
       <input type="text" id="searchInput" placeholder="Pesquisar" oninput="searchTable()" />
     </div>
     <table class="records">
@@ -60,7 +63,7 @@
           </div>
           <div id="form-group">
             <label for="m-nserie">Número de série:</label>
-             <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série" required />
+            <input type="text" class="modal-field" id="m-nserie" placeholder="Nº de Série" required />
           </div>
           <div id="form-group">
             <label for="m-ult_mp">Data da última preventiva:</label>
@@ -71,12 +74,13 @@
             <input type="date" class="modal-field" id="m-prox_mp" placeholder="Data da próxima preventiva" required />
           </div>
           <div id="form-group">
-            <label for="m-telefone">Contato:</label>
-            <input type="text" class="modal-field" id="m-telefone" placeholder="Nome e telefone ou e-mail" required />
+            <label for="m-contato">Contato:</label>
+            <input type="text" class="modal-field" id="m-contato" placeholder="Nome e telefone ou e-mail" required />
           </div>
           <div id="form-group">
             <label for="m-certificado">Insira o Certificado:</label>
-            <input type="file" class="modal-field" id="m-certificado" accept=".pdf" placeholder="Selecione um arquivo PDF" required />
+            <input type="file" class="modal-field" id="m-certificado" accept=".pdf"
+              placeholder="Selecione um arquivo PDF" required />
           </div>
         </form>
         <footer class="modal-footer">
