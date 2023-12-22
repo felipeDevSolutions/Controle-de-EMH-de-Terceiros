@@ -38,8 +38,9 @@ button.pur{
         height:50px;
         border-radius: 50%;
         position:fixed;
-        top: 90vh;
+        top: 85vh;
         left: 80vw;
+      z-index: 1;
     }
     .button.mobile::before{
         content: "+";

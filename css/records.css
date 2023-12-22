@@ -49,6 +49,7 @@
 @media(max-width:480px) {
   .records {
     border-spacing: 5px;
+    
   }
 
   .records thead {
@@ -57,6 +58,7 @@
 
   .records tr {
     box-shadow: 0 1px 3px var(--shadow-color);
+    border-radius: 20px;
   }
 
   .records td:not(:first-child) {
