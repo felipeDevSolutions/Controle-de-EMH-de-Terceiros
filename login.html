@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-  
-  
+    <div class="form-popup">
+        <div class="form-box login">
+            <div class="form-details">
+                <h2>Engenharia Clínica</h2>
+                <p>Acompanhamento das manutenções preventivas de equipamentos de terceiros.</p>
+            </div>
+            <div class="form-content">
+                <h2>LOGIN</h2>
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" required>
+                        <label>Senha</label>
+                    </div>
+                    <a href="#" class="forgot-pass">Esqueceu sua senha?</a>
+                    <button type="submit">Entrar</button>
+                    
+                    <div class="bottom-link">
+                        Ainda não criou sua conta?
+                        <a href="#" id="signup-link">Criar conta</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="form-box signup">
+            <div class="form-details">
+                <h2>Engenharia Clínica</h2>
+                <p>Acompanhamento das manutenções preventivas de equipamentos de terceiros.</p>
+            </div>
+            <div class="form-content">
+                <h2>CADASTRAR</h2>
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" required>
+                        <label>Cadastrar email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" required>
+                        <label>Criar senha</label>
+                    </div>
+                    <div class="policy-text">
+                        <input type="checkbox" id="policy">
+                        <label for="policy">
+                            Concordo com os
+                            <a href="#">Termos e condições</a>
+                        </label>
+                    </div>
+                    <button type="submit">Cadastrar</button>
+                    
+                    <div class="bottom-link">
+                        Já tem uma conta?
+                        <a href="#" id="login-link">Login</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>   
 </body>
 </html>
