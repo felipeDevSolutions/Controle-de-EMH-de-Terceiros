@@ -39,6 +39,8 @@ body{
     background-size:auto;
     background-position:right;
     border-radius: 8px;   
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .form-box h2{
@@ -130,6 +132,12 @@ form .input-field label{
     margin-top: 14px;
     font-size: 0.95rem;
     color: #fff;
+}
+
+.input-fieldError{
+    color: #fff;
+    font-size: 0.95rem;
+    margin-top: 5px;
 }
 
 form button{
