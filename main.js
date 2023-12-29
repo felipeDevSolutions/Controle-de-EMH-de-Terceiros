@@ -298,23 +298,7 @@ document.addEventListener("DOMContentLoaded", function() {
     { fornecedor: "Siemens", equipamento: "SOMATOM Force", nserie: "98765", ult_mp: "2022-12-10", prox_mp: "2023-02-10" },
     { fornecedor: "Philips", equipamento: "Azurion 7 C20", nserie: "13579", ult_mp: "2023-01-05", prox_mp: "2024-03-05" },
     { fornecedor: "GE Healthcare", equipamento: "Vivid E95", nserie: "24680", ult_mp: "2023-02-05", prox_mp: "2023-04-05" },
-    { fornecedor: "Siemens", equipamento: "Biograph Vision PET/CT", nserie: "11223", ult_mp: "2022-11-25", prox_mp: "2023-01-25" },
-    { fornecedor: "Philips", equipamento: "Epiq Elite Ultrasound", nserie: "33445", ult_mp: "2023-01-01", prox_mp: "2023-03-01" },
-    { fornecedor: "GE Healthcare", equipamento: "LOGIQ E10 Ultrasound", nserie: "55667", ult_mp: "2023-02-15", prox_mp: "2023-04-15" },
-    { fornecedor: "Siemens", equipamento: "Acuson Sequoia Ultrasound", nserie: "77889", ult_mp: "2022-12-15", prox_mp: "2023-02-15" },
-    { fornecedor: "Philips", equipamento: "Affiniti 70 Ultrasound", nserie: "99001", ult_mp: "2023-01-20", prox_mp: "2023-03-20" },
-    { fornecedor: "Philips", equipamento: "Epic 5 Ultrasound", nserie: "11224", ult_mp: "2023-01-10", prox_mp: "2023-03-10" },
-    { fornecedor: "GE Healthcare", equipamento: "Vivid S6", nserie: "33446", ult_mp: "2023-02-20", prox_mp: "2024-04-20" },
-    { fornecedor: "GE Healthcare", equipamento: "OEC 9900 Elite C-arm", nserie: "11223", ult_mp: "2022-11-30", prox_mp: "2023-01-30" },
-    { fornecedor: "Siemens", equipamento: "Artis Q.zen Angiography", nserie: "33445", ult_mp: "2023-02-10", prox_mp: "2023-04-10" },
-    { fornecedor: "Philips", equipamento: "Allura Xper FD20/20", nserie: "55667", ult_mp: "2022-12-05", prox_mp: "2023-02-05" },
-    { fornecedor: "GE Healthcare", equipamento: "Centricity 360 PACS", nserie: "77889", ult_mp: "2023-01-10", prox_mp: "2023-03-10" },
-    { fornecedor: "Siemens", equipamento: "Symbia Intevo Bold SPECT/CT", nserie: "99001", ult_mp: "2023-02-20", prox_mp: "2023-04-20" },
-    { fornecedor: "Philips", equipamento: "IntelliVue MX750 Patient Monitor", nserie: "11223", ult_mp: "2023-12-20", prox_mp: "2024-02-20" },
-    { fornecedor: "GE Healthcare", equipamento: "CARESCAPE B850 Monitor", nserie: "33445", ult_mp: "2023-01-25", prox_mp: "2023-03-25" },
-    { fornecedor: "Siemens", equipamento: "Mammomat Fusion Mammography", nserie: "55667", ult_mp: "2023-02-01", prox_mp: "2024-04-01" },
-    { fornecedor: "Philips", equipamento: "Brilliance 64 CT Scanner", nserie: "77889", ult_mp: "2022-12-25", prox_mp: "2024-01-10" },
-    { fornecedor: "GE Healthcare", equipamento: "Discovery MI PET/CT", nserie: "99001", ult_mp: "2023-01-30", prox_mp: "2023-03-30" }
+    { fornecedor: "Siemens", equipamento: "Biograph Vision PET/CT", nserie: "11223", ult_mp: "2022-11-25", prox_mp: "2023-01-25" }
   ];
 
   sampleData.forEach((data) => appendRow(data));

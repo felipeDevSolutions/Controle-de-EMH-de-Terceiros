@@ -21,10 +21,15 @@ function initFirebase() {
     const db = getFirestore();
 
     return { auth, db };
+    
 }
+const { auth, db } = initFirebase();
+// Exporta a função initFirebase e a instância do Firestore
+export { initFirebase, db, auth};
+
 
 document.addEventListener("DOMContentLoaded", function () {
-    const { auth, db } = initFirebase();
+    
 
     const linkCadastrar = document.querySelectorAll(".form-box .bottom-link a");
     const formPopup = document.querySelector(".form-popup ");
@@ -52,13 +57,13 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch((error) => {
                 console.error("Erro de autenticação:", error.message);
-                alert("Usuário não cadastrado. Por favor, faça o cadastro primeiro.");
+                alert("Credenciais inválidas. Verifique o usuário e senha ou faça seu cadastro.");
             });
     });
 
     // Evento disparado quando o formulário de cadastro é enviado
     signupForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
+    e.preventDefault();
 
         const companyName = signupForm.querySelector("#signupEmpresa").value;
         const email = signupForm.querySelector("#signupEmail").value;
@@ -83,26 +88,31 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Nome da empresa:", companyName);
 
             // Adicionar informações adicionais ao Firestore na coleção "Controle de EMH de Terceiros"
-            const userDocRef = await addDoc(collection(db, "Controle de EMH de Terceiros", "users", userCredential.user.uid), {
+            const userDocRef = await addDoc(collection(db, "users"), {
                 fornecedor: companyName, // Nome da empresa como fornecedor
                 usuario: email,          // Email como nome de usuário
-                senha: password,         // Senha
                 userId: userCredential.user.uid,
             });
 
             console.log("Documento do usuário adicionado com ID:", userDocRef.id);
+            alert("Cadastro realizado com sucesso.", "Faça login para entrar no sistema.");
 
-            // Redirecione ou execute outras ações após o cadastro
-            window.location.href = "index.html";
+            // Redirecionar após um intervalo de tempo (ex: 3 segundos)
+            setTimeout(() => {
+                // Redirecione ou execute outras ações após o cadastro
+                window.location.href = "login.html";
+            }, 3000); // 3000 milissegundos = 3 segundos
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 console.error("Erro de cadastro:", "O e-mail já está em uso. Por favor, escolha outro e-mail.");
                 // Exiba uma mensagem para o usuário informando que o e-mail já está em uso
+                alert("Erro de cadastro:", "O e-mail já está em uso. Por favor, escolha outro e-mail.")
             } else {
                 console.error("Erro de cadastro:", error.message);
             }
         }
     });
+
 
     // Evento disparado quando o input de email do formulário de cadastro é alterado
     const signupEmailInput = signupForm.querySelector("#signupEmail");
