@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (error.code === 'auth/email-already-in-use') {
                 console.error("Erro de cadastro:", "O e-mail já está em uso. Por favor, escolha outro e-mail.");
                 // Exiba uma mensagem para o usuário informando que o e-mail já está em uso
-                alert("Erro de cadastro:", "O e-mail já está em uso. Por favor, escolha outro e-mail.")
+                alert("E-mail já cadastrado. Por favor, escolha outro e-mail.")
             } else {
                 console.error("Erro de cadastro:", error.message);
             }
