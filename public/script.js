@@ -1,31 +1,22 @@
+// mainScript.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import firebaseConfig from './firebaseConfig.js';
 
 // Função para inicializar o Firebase
 function initFirebase() {
-    // Configuração do Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyD7hSB26zKy2ojX1pHHSJCjF6Jqsy0hD1w",
-        authDomain: "controle-de-emhde-terceiros.firebaseapp.com",
-        databaseURL: "https://controle-de-emhde-terceiros-default-rtdb.firebaseio.com",
-        projectId: "controle-de-emhde-terceiros",
-        storageBucket: "controle-de-emhde-terceiros.appspot.com",
-        messagingSenderId: "360717669238",
-        appId: "1:360717669238:web:63e1a635e12054ab19a057"
-    };
-
     // Inicialização do Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
     const db = getFirestore();
 
     return { auth, db };
-    
 }
+
 const { auth, db } = initFirebase();
 // Exporta a função initFirebase e a instância do Firestore
-export { initFirebase, db, auth};
+export { initFirebase, db, auth };
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -97,11 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Documento do usuário adicionado com ID:", userDocRef.id);
             alert("Cadastro realizado com sucesso.", "Faça login para entrar no sistema.");
 
-            // Redirecionar após um intervalo de tempo (ex: 3 segundos)
-            setTimeout(() => {
-                // Redirecione ou execute outras ações após o cadastro
-                window.location.href = "login.html";
-            }, 3000); // 3000 milissegundos = 3 segundos
+            window.location.href = "login.html";
+            
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 console.error("Erro de cadastro:", "O e-mail já está em uso. Por favor, escolha outro e-mail.");
