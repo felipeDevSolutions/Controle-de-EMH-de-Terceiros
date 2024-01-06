@@ -241,15 +241,17 @@ const viewCertificate = (button) => {
 };
 
 
-//Função para deletar uma linha com confirmação
+//Função para deletar uma linha principal e sua linha de contato com confirmação
 const deleteRow = (button) => {
   const row = button.closest("tr");
+  const contactRow = row.nextElementSibling;
 
   // Mostrar um alerta de confirmação
   const isConfirmed = confirm("Tem certeza que deseja excluir este equipamento?");
 
   if (isConfirmed) {
     tbody.removeChild(row);
+    tbody.removeChild(contactRow);
   }
 };
 
